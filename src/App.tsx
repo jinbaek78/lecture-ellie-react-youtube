@@ -26,8 +26,6 @@ const App = ({}: AppProps) => {
     <div className="bg-gray-black app">
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        {/* <Header />
-        <VideoList /> */}
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </div>

@@ -19,9 +19,7 @@ const Header = ({}: HeaderProps) => {
     if (query.trim().length === 0) {
       return;
     }
-    //
-    // link to ? or callback(query)
-    // console.log('sending query...:', query);
+
     navigate(`/videos/${query}`);
   };
   const handleYoutubeClick = () => {
@@ -56,7 +54,6 @@ const Header = ({}: HeaderProps) => {
           </button>
         </form>
       </div>
-      {/* <hr className="bg-slate-500" /> */}
     </>
   );
 };

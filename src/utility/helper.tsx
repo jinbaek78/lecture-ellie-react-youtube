@@ -79,7 +79,7 @@ export function convertTimeToDate(milliSeconds: number): string {
     }
   }
 
-  // month => year (1year === 12weeks)
+  // month => year (1year === 12month)
   // 12 month, 13, 14 ,15 ... months
   time = Math.floor(time / 12);
   switch (time) {

@@ -12,9 +12,7 @@ export type VideoType = {
 };
 
 export type VideoIdType = { kind: string; videoId: string };
-// https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=UCOmHUn--16B90oW2L6FRR3A&key=AIzaSyCun---i4_DD4q24HO2m2svGAzMe_wbWP8
 
-// https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US&key=AIzaSyCun---i4_DD4q24HO2m2svGAzMe_wbWP8
 type VideoProps = {
   video: VideoType;
   isSide?: boolean | undefined;
@@ -23,17 +21,12 @@ const Video = ({ video, isSide }: VideoProps) => {
   const videoId = typeof video.id === 'string' ? video.id : video.id.videoId;
   const navigate = useNavigate();
   const handleClick = () => {
-    // console.log('video: ', video);
-    // navigate somewhere
-    console.log('video: ', video);
     navigate(`/videos/watch/${videoId}`, { state: video.snippet });
   };
   const {
-    snippet,
     snippet: {
       title,
       channelTitle,
-      description,
       publishedAt,
       thumbnails: {
         medium: { url, width, height },
@@ -47,14 +40,11 @@ const Video = ({ video, isSide }: VideoProps) => {
     <div
       className={
         isSide
-          ? `w-full mb-2 flex`
+          ? `w-full mb-2 flex `
           : `w-60 max-w-xs px-1 mt-2 h-50 sm:flex-auto`
       }
-      // className="w-60 max-w-xs flex sm:flex-auto sm:flex-col"
-      // className="w-60 max-w-xs px-1 mt-2 h-50 sm:flex-auto"
       onClick={handleClick}
     >
-      {/* <img className="" src={url} width={width} height={height} /> */}
       <img
         className="mr-2"
         src={url}
@@ -92,15 +82,7 @@ type URLandSizeType = {
   width?: number;
   height?: number;
 };
-// type ContentDetailType = {
-//   caption: 'true' | 'false';
-//   contentRatings: {};
-//   definition: string;
-//   dimension: '2d' | '3d';
-//   duration: string;
-//   licensedContent: boolean;
-//   projection: string;
-// };
+
 type SnippetType = {
   publishedAt: string;
   channelId: string;
