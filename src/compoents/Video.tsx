@@ -2,13 +2,15 @@ import { ReactNode } from 'react';
 import { convertTimeToDate, getTruncated } from '../utility/helper';
 
 export type VideoType = {
-  contentDetail: ContentDetailType;
+  // to be added for displaying view count
+  // statistics: StatisticsType;
   etag: string;
-  id: string;
   kind: string;
+  id: string | VideoIdType;
   snippet: SnippetType;
-  statistics: StatisticsType;
 };
+
+export type VideoIdType = { kind: string; videoId: string };
 
 type VideoProps = {
   video: VideoType;
@@ -28,7 +30,6 @@ const Video = ({ video }: VideoProps) => {
   } = video;
 
   const elapsedTime = Date.now() - Date.parse(publishedAt);
-  // milliseconds => seconds
 
   return (
     <div className="w-60 max-w-xs px-1 mt-2 h-50 sm:flex-auto ">
@@ -64,34 +65,36 @@ type ThumbnailsType = {
   default: URLandSizeType;
   hight: URLandSizeType;
   medium: URLandSizeType;
-  standard: URLandSizeType;
+  standard?: URLandSizeType;
 };
 type URLandSizeType = {
   url: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 };
-type ContentDetailType = {
-  caption: 'true' | 'false';
-  contentRatings: {};
-  definition: string;
-  dimension: '2d' | '3d';
-  duration: string;
-  licensedContent: boolean;
-  projection: string;
-};
+// type ContentDetailType = {
+//   caption: 'true' | 'false';
+//   contentRatings: {};
+//   definition: string;
+//   dimension: '2d' | '3d';
+//   duration: string;
+//   licensedContent: boolean;
+//   projection: string;
+// };
 type SnippetType = {
-  categoryId: string;
+  publishedAt: string;
   channelId: string;
   channelTitle: string;
+  title: string;
   description: string;
+  thumbnails: ThumbnailsType;
   liveBroadcastContent: string;
-  localized: {
+
+  publishTime?: string;
+  categoryId?: string;
+  localized?: {
     title: string;
     description: string;
   };
-  publishedAt: string;
-  tags: string[];
-  thumbnails: ThumbnailsType;
-  title: string;
+  tags?: string[];
 };

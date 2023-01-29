@@ -79,9 +79,9 @@ export function convertTimeToDate(milliSeconds: number): string {
     }
   }
 
-  // month => year (1year === 48weeks)
-  // 48weeks, 49, 50 , 51, 52, 53, 54...
-  time = Math.floor(time / 48);
+  // month => year (1year === 12weeks)
+  // 12 month, 13, 14 ,15 ... months
+  time = Math.floor(time / 12);
   switch (time) {
     case 1: {
       result = `${time} year ago`;
@@ -105,7 +105,7 @@ export function convertTimeToDate(milliSeconds: number): string {
     }
   }
 
-  return `$unSupported ${time} weeks, it had been more than 12 years`;
+  return `unSupported ${time} weeks, it had been more than 12 years`;
 }
 
 export function getTruncated(str: string): string {
