@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../compoents/Header';
+import Header from './Header';
 
 type RootProps = {};
 const Root = ({}: RootProps) => {

@@ -108,6 +108,6 @@ export function convertTimeToDate(milliSeconds: number): string {
   return `unSupported ${time} weeks, it had been more than 12 years`;
 }
 
-export function getTruncated(str: string): string {
-  return str.length < 70 ? str : `${str.substring(0, 70)}...`;
+export function getTruncated(str: string, limit: number = 70): string {
+  return str.length < limit ? str : `${str.substring(0, limit)}...`;
 }
