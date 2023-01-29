@@ -1,26 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { useChannelQuery } from '../queries/useYouTubeQuery';
 import { getTruncated } from '../utility/helper';
 import VideoList from './VideoList';
-// youtube.googleapis.com/youtube/v3/channels?part=snippet&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=[YOUR_API_KEY]
-const base = `https://youtube.googleapis.com/youtube/v3`;
-const options = 'channels?part=snippet';
-const key = `&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`;
+
 type VideoDetailProps = {};
 const VideoDetail = ({}: VideoDetailProps) => {
   const { videoId } = useParams();
   const { channelId, channelTitle, description, title } = useLocation().state;
-  const { isLoading, data } = useQuery([`data/${channelId}`], async () => {
-    const url = `${base}/${options}${key}&id=${channelId}`;
-    return fetch(url).then((res) => res.json());
-  });
-  // console.log(data.items[0].snippet.thumbnails.default);
-  console.log('data: ', data);
-  // const { url } = data?.items?.[0]?.snippet?.thumbnails?.default;
-  let url = '';
+  const { isLoading, data } = useChannelQuery(channelId);
+
+  let thumbNailURL = '';
   if (!isLoading) {
-    url = data?.items?.[0]?.snippet?.thumbnails?.default.url;
+    thumbNailURL = data?.items?.[0]?.snippet?.thumbnails?.default.url;
   }
 
   return (
@@ -36,7 +29,12 @@ const VideoDetail = ({}: VideoDetailProps) => {
         ></iframe>
         <p className="mt-4 h-10 text-lg">{getTruncated(title, 75)}</p>
         <div className="flex mt-4">
-          <img className="rounded-full" src={url} width={50} height={50} />
+          <img
+            className="rounded-full"
+            src={thumbNailURL}
+            width={50}
+            height={50}
+          />
           <p className="mt-3 mx-2">{channelTitle}</p>
         </div>
         <p className="mt-3 text-gray-300">{getTruncated(description, 180)}</p>
