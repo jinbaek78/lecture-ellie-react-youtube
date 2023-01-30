@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 type VideoDetailProps = {};
 const VideoDetail = ({}: VideoDetailProps) => {
-  return <div>VideoDetail</div>;
+  return <div className='text-white"'>VideoDetail</div>;
 };
 
 export default VideoDetail;

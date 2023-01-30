@@ -31,29 +31,35 @@ const Header = ({}: HeaderProps) => {
     navigate('/');
   };
   return (
-    <div className="flex">
-      <div className="flex" onClick={handleYoutubeClick}>
-        <div className="w-7 h-5  bg-strong-red rounded-md flex justify-center items-center">
-          <BsFillCaretRightFill />
+    <>
+      <div className="h-16 p-3 flex justify-between items-center ">
+        <div className="flex items-center" onClick={handleYoutubeClick}>
+          <div className="w-7 h-5  bg-strong-red rounded-md flex justify-center items-center">
+            <BsFillCaretRightFill />
+          </div>
+          <p className="text-white text-2xl font-bold ml-1">Youtube</p>
         </div>
-        <p>Youtube</p>
-      </div>
-      <form className="text-white flex" onSubmit={handleSubmit}>
-        <input
-          className="bg-black placeholder:p-1"
-          placeholder="Search..."
-          type="text"
-          value={text}
-          onChange={handleTextChange}
-        />
-        <button
-          className="w-5 bg-gray-500 flex justify-center items-center"
-          type="submit"
+        <form
+          className="text-white flex basis-2/3 w-full"
+          onSubmit={handleSubmit}
         >
-          <BsSearch />
-        </button>
-      </form>
-    </div>
+          <input
+            className="bg-black placeholder:p-1 w-2/3 h-9 focus:outline-none border-none"
+            placeholder="Search..."
+            type="text"
+            value={text}
+            onChange={handleTextChange}
+          />
+          <button
+            className="w-10 bg-zinc-500 flex justify-center items-center"
+            type="submit"
+          >
+            <BsSearch />
+          </button>
+        </form>
+      </div>
+      <div className="w-full h-px  bg-zinc-500 mb-3 box"></div>
+    </>
   );
 };
 
