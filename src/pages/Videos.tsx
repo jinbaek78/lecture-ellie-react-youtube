@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
 import FakeYoutube from '../api/fakeYoutube';
-import { search } from '../api/youtube';
+import Youtube from '../api/youtube';
 import VideoCard from '../components/VideoCard';
 
 export type VideoType = {
@@ -21,7 +21,9 @@ const Videos = ({}: VideosProps) => {
     error,
     data: videos,
   } = useQuery(['videos', keyword], () => {
-    const youtube = new FakeYoutube();
+    // const youtube = new FakeYoutube();
+    const youtube = new Youtube();
+    console.log('youtube: ', youtube);
     return youtube.search(keyword);
   });
   return (
