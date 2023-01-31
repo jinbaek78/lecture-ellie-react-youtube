@@ -1,7 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 import { VideoIdType, VideoType } from '../pages/Videos';
 
-export default class Youtube {
+export interface Searchable {
+  httpClient?: AxiosInstance;
+  search: (keyword: string | undefined) => Promise<VideoType[]>;
+}
+
+export default class Youtube implements Searchable {
   httpClient: AxiosInstance;
   constructor() {
     this.httpClient = axios.create({

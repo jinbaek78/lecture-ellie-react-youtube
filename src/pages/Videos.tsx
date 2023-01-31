@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import FakeYoutube from '../api/fakeYoutube';
 import Youtube from '../api/youtube';
 import VideoCard from '../components/VideoCard';
+import { useYoutubeApi } from '../context/YoutubeApiContext';
 
 export type VideoType = {
   etag: string;
@@ -16,18 +17,14 @@ export type VideoType = {
 type VideosProps = {};
 const Videos = ({}: VideosProps) => {
   const { keyword } = useParams();
+  const youtube = useYoutubeApi();
   const {
     isLoading,
     error,
     data: videos,
-  } = useQuery(['videos', keyword], () => {
-    // const youtube = new FakeYoutube();
-    const youtube = new Youtube();
-    console.log('youtube: ', youtube);
-    return youtube.search(keyword);
-  });
+  } = useQuery(['videos', keyword], () => youtube.search(keyword));
   return (
-    <div>
+    <>
       Videos {keyword ? `🔎${keyword}` : `🔥`}
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>Something is wrong</h1>}
@@ -41,7 +38,7 @@ const Videos = ({}: VideosProps) => {
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 };
 

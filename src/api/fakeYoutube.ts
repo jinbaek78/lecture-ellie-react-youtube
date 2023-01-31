@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { VideoIdType, VideoType } from '../pages/Videos';
+import { Searchable } from './youtube';
 
-export default class FakeYoutube {
+export default class FakeYoutube implements Searchable {
   constructor() {}
 
   async search(keyword: string | undefined) {
