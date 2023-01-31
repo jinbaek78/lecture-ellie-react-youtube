@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
 import VideoCard from '../components/VideoCard';
@@ -18,9 +19,12 @@ const Videos = ({}: VideosProps) => {
     error,
     data: videos,
   } = useQuery(['videos', keyword], async () => {
-    return fetch(`/videos/${keyword ? 'search' : 'popular'}.json`)
-      .then((res) => res.json())
-      .then((data) => data.items);
+    return axios(`/videos/${keyword ? 'search' : 'popular'}.json`).then(
+      (res) => {
+        console.log('res: ', res);
+        return res.data.items;
+      }
+    );
   });
   return (
     <div>
