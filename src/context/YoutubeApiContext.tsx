@@ -1,16 +1,17 @@
 import { createContext, ReactNode, useContext } from 'react';
-import FakeYoutube from '../api/fakeYoutube';
-import Youtube, { Searchable } from '../api/youtube';
+import FakeYoutubeClient from '../api/fakeYoutubeClient';
+import Youtube, { IYoutube } from '../api/youtube';
+import YoutubeClient, { IClient } from '../api/youtubeClient';
 
-const YoutubeApiContext = createContext<Searchable | null>(null);
+const YoutubeApiContext = createContext<IYoutube | null>(null);
 
-// const youtube: Searchable = new Youtube();
-const youtube: Searchable = new FakeYoutube();
-
-type YoutubeApiContextProps = {
+const client = new FakeYoutubeClient();
+// const client = new YoutubeClient();
+const youtube = new Youtube(client);
+type YoutubeApiProviderProps = {
   children: ReactNode;
 };
-const YoutubeApiProvider = ({ children }: YoutubeApiContextProps) => {
+const YoutubeApiProvider = ({ children }: YoutubeApiProviderProps) => {
   return (
     <YoutubeApiContext.Provider value={youtube}>
       {children}

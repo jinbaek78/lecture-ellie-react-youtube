@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
-import FakeYoutube from '../api/fakeYoutube';
-import Youtube from '../api/youtube';
+import FakeYoutube from '../api/fakeYoutubeClient';
+import Youtube from '../api/youtubeClient';
 import VideoCard from '../components/VideoCard';
 import { useYoutubeApi } from '../context/YoutubeApiContext';
 
@@ -18,6 +18,7 @@ type VideosProps = {};
 const Videos = ({}: VideosProps) => {
   const { keyword } = useParams();
   const youtube = useYoutubeApi();
+  console.log('youtube: ', youtube);
   const {
     isLoading,
     error,

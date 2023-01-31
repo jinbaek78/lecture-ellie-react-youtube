@@ -1,27 +1,21 @@
-import axios, { AxiosInstance } from 'axios';
 import { VideoIdType, VideoType } from '../pages/Videos';
+import { IClient } from './youtubeClient';
 
-export interface Searchable {
-  httpClient?: AxiosInstance;
+export interface IYoutube {
+  apiClient: IClient;
   search: (keyword: string | undefined) => Promise<VideoType[]>;
 }
 
-export default class Youtube implements Searchable {
-  httpClient: AxiosInstance;
-  constructor() {
-    this.httpClient = axios.create({
-      baseURL: 'https://youtube.googleapis.com/youtube/v3',
-      params: { key: import.meta.env.VITE_YOUTUBE_API_KEY },
-    });
-  }
+export default class Youtube implements IYoutube {
+  constructor(public apiClient: IClient) {}
 
   async search(keyword: string | undefined) {
     return keyword ? this.searchByKeyword(keyword) : this.mostPopular();
   }
 
   private async searchByKeyword(keyword: string) {
-    return this.httpClient
-      .get('search', {
+    return this.apiClient
+      .search({
         params: {
           part: 'snippet',
           maxResults: 100,
@@ -37,8 +31,8 @@ export default class Youtube implements Searchable {
   }
 
   private async mostPopular() {
-    return this.httpClient
-      .get('/videos', {
+    return this.apiClient
+      .videos({
         params: {
           part: 'snippet',
           maxResults: 100,
@@ -46,7 +40,7 @@ export default class Youtube implements Searchable {
           regionCode: 'US',
           chart: 'mostPopular',
         },
-      }) //
+      })
       .then((res) => res.data.items);
   }
 }
