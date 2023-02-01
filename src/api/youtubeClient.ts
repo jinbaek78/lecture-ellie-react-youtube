@@ -4,6 +4,8 @@ export interface IClient {
   httpClient?: AxiosInstance;
   search: (options: AxiosRequestConfig) => Promise<any>;
   videos: (options: AxiosRequestConfig) => Promise<any>;
+  channel: (options: AxiosRequestConfig) => Promise<any>;
+  related: (options: AxiosRequestConfig) => Promise<any>;
 }
 
 export default class YoutubeClient implements IClient {
@@ -20,5 +22,13 @@ export default class YoutubeClient implements IClient {
 
   async videos(options: AxiosRequestConfig) {
     return this.httpClient.get('videos', options);
+  }
+
+  async channel(options: AxiosRequestConfig) {
+    return this.httpClient.get('channels', options);
+  }
+
+  async related(options: AxiosRequestConfig) {
+    return this.httpClient.get('search', options);
   }
 }

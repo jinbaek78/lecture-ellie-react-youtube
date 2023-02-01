@@ -3,7 +3,9 @@ import { IClient } from './youtubeClient';
 
 export interface IYoutube {
   apiClient: IClient;
-  search: (keyword: string | undefined) => Promise<VideoType[]>;
+  search: (keyword: string | undefined) => Promise<any>;
+  getChannel: (channelId: string) => Promise<any>;
+  getRelated: (videoId: string) => Promise<any>;
 }
 
 export default class Youtube implements IYoutube {
@@ -11,6 +13,40 @@ export default class Youtube implements IYoutube {
 
   async search(keyword: string | undefined) {
     return keyword ? this.searchByKeyword(keyword) : this.mostPopular();
+  }
+
+  // youtube.googleapis.com/youtube/v3/channels?part=snippet&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=[YOUR_API_KEY]
+
+  async getChannel(channelId: string) {
+    return this.apiClient
+      .channel({
+        params: {
+          part: 'snippet',
+          id: channelId,
+        },
+      })
+      .then((res) => res.data.items[0]);
+  }
+
+  //youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=Ks-_Mh1QhMc&type=video&key=[YOUR_API_KEY
+
+  // relatedToVideoId=Ks-_Mh1QhMc&type
+
+  async getRelated(videoId: string) {
+    return this.apiClient
+      .related({
+        params: {
+          part: 'snippet',
+          type: 'video',
+          maxResults: 100,
+          regionCode: 'US',
+          relatedToVideoId: videoId,
+        },
+      })
+      .then((res) => res.data.items)
+      .then((items: VideoType[]) =>
+        items.map((item) => ({ ...item, id: (item.id as VideoIdType).videoId }))
+      );
   }
 
   private async searchByKeyword(keyword: string) {

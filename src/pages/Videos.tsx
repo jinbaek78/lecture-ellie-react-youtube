@@ -47,7 +47,7 @@ export default Videos;
 
 export type VideoIdType = { kind: string; videoId: string };
 
-type SnippetType = {
+export type SnippetType = {
   publishedAt: string;
   channelId: string;
   channelTitle: string;
@@ -63,6 +63,9 @@ type SnippetType = {
     description: string;
   };
   tags?: string[];
+
+  country?: string;
+  customUrl?: string;
 };
 
 type ThumbnailsType = {
