@@ -1,9 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
-import FakeYoutube from '../api/fakeYoutubeClient';
-import Youtube from '../api/youtubeClient';
 import VideoCard from '../components/VideoCard';
 import { useYoutubeApi } from '../context/YoutubeApiContext';
 
@@ -18,7 +14,6 @@ type VideosProps = {};
 const Videos = ({}: VideosProps) => {
   const { keyword } = useParams();
   const youtube = useYoutubeApi();
-  console.log('youtube: ', youtube);
   const {
     isLoading,
     error,
@@ -30,12 +25,10 @@ const Videos = ({}: VideosProps) => {
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>Something is wrong</h1>}
       {videos && (
-        <ul>
+        // <ul className="w-full flex flex-wrap m-0 p-0">
+        <ul className="grid gap-2 gap-y-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ">
           {videos.map((video: VideoType) => (
-            <VideoCard
-              key={typeof video.id === 'string' ? video.id : video.id.videoId}
-              video={video}
-            />
+            <VideoCard key={video.id as string} video={video} />
           ))}
         </ul>
       )}
@@ -67,7 +60,7 @@ type SnippetType = {
 
 type ThumbnailsType = {
   default: URLandSizeType;
-  hight: URLandSizeType;
+  high: URLandSizeType;
   medium: URLandSizeType;
   standard: URLandSizeType;
 };
