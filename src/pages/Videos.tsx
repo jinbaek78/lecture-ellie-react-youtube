@@ -23,7 +23,6 @@ const Videos = ({}: VideosProps) => {
   });
   return (
     <>
-      Videos {keyword ? `🔎${keyword}` : `🔥`}
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>Something is wrong</h1>}
       {videos && (
