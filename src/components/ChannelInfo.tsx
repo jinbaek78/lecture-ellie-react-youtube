@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { ReactNode } from 'react';
 import { useYoutubeApi } from '../context/YoutubeApiContext';
 
 type ChannelInfoProps = {
@@ -8,10 +7,11 @@ type ChannelInfoProps = {
 };
 const ChannelInfo = ({ id, name }: ChannelInfoProps) => {
   const { youtube } = useYoutubeApi();
-  const { data: url } = useQuery(['channel', id], () =>
-    youtube.channelImageURL(id)
+  const { data: url } = useQuery(
+    ['channel', id],
+    () => youtube.channelImageURL(id),
+    { staleTime: 1000 * 60 * 5 }
   );
-  console.log(url);
 
   return (
     <div className="flex my-4 mb-8 items-center">

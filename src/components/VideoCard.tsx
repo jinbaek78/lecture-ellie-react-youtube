@@ -1,6 +1,4 @@
-import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { format, register } from 'timeago.js';
 import { VideoType } from '../pages/Videos';
 import { formatAgo } from '../util/date';
 
@@ -12,7 +10,6 @@ const VideoCard = ({ video, type }: VideoCardProps) => {
   const { title, thumbnails, channelTitle, publishedAt } = video.snippet;
   const navigate = useNavigate();
   const isList = type === 'list';
-  console.log(isList);
   return (
     <li
       className={isList ? 'flex gap-1 m-2' : ''}

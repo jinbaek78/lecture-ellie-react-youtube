@@ -1,9 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
-import FakeYoutube from '../api/fakeYoutubeClient';
-import Youtube from '../api/youtubeClient';
 import VideoCard from '../components/VideoCard';
 import { useYoutubeApi } from '../context/YoutubeApiContext';
 
@@ -22,7 +18,9 @@ const Videos = ({}: VideosProps) => {
     isLoading,
     error,
     data: videos,
-  } = useQuery(['videos', keyword], () => youtube.search(keyword));
+  } = useQuery(['videos', keyword], () => youtube.search(keyword), {
+    staleTime: 1000 * 60 * 1,
+  });
   return (
     <>
       Videos {keyword ? `🔎${keyword}` : `🔥`}
