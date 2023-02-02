@@ -26,6 +26,7 @@ const RelatedVideos = ({ id }: RelatedVideosProps) => {
             <VideoCard
               key={typeof video.id === 'string' ? video.id : video.id.videoId}
               video={video}
+              type="list"
             />
           ))}
         </ul>
