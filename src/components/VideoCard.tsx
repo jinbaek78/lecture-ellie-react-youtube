@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { format, register } from 'timeago.js';
 import { VideoType } from '../pages/Videos';
 import { formatAgo } from '../util/date';
@@ -8,8 +9,14 @@ type VideoCardProps = {
 };
 const VideoCard = ({ video }: VideoCardProps) => {
   const { title, thumbnails, channelTitle, publishedAt } = video.snippet;
+  const navigate = useNavigate();
   return (
-    <li className="w-full">
+    <li
+      className="w-full"
+      onClick={() =>
+        navigate(`/videos/watch/${video.id}`, { state: { video } })
+      }
+    >
       <img className="w-full" src={thumbnails.medium.url} alt={title} />
       <div>
         <p className="font-semibold my-2 line-clamp-2">{title}</p>

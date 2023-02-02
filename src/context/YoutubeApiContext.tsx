@@ -3,7 +3,10 @@ import FakeYoutubeClient from '../api/fakeYoutubeClient';
 import Youtube, { IYoutube } from '../api/youtube';
 import YoutubeClient, { IClient } from '../api/youtubeClient';
 
-const YoutubeApiContext = createContext<IYoutube | null>(null);
+type YoutubeContextType = {
+  youtube: IYoutube;
+};
+const YoutubeApiContext = createContext<YoutubeContextType | null>(null);
 
 const client = new FakeYoutubeClient();
 // const client = new YoutubeClient();
@@ -13,7 +16,7 @@ type YoutubeApiProviderProps = {
 };
 const YoutubeApiProvider = ({ children }: YoutubeApiProviderProps) => {
   return (
-    <YoutubeApiContext.Provider value={youtube}>
+    <YoutubeApiContext.Provider value={{ youtube }}>
       {children}
     </YoutubeApiContext.Provider>
   );

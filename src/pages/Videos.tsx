@@ -17,8 +17,7 @@ export type VideoType = {
 type VideosProps = {};
 const Videos = ({}: VideosProps) => {
   const { keyword } = useParams();
-  const youtube = useYoutubeApi();
-  console.log('youtube: ', youtube);
+  const { youtube } = useYoutubeApi();
   const {
     isLoading,
     error,
